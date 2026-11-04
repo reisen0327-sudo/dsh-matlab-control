@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="MATLAB/Simulink control assistant">
+  <rect x="2" y="2" width="60" height="60" rx="12" fill="#0f2b46"/>
+  <path d="M12 46 L24 26 L34 38 L44 18 L52 30" fill="none" stroke="#3fb6ff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="12" y1="50" x2="52" y2="50" stroke="#7f95a8" stroke-width="2" stroke-linecap="round"/>
+  <line x1="12" y1="50" x2="12" y2="14" stroke="#7f95a8" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="44" cy="18" r="3.4" fill="#ffb43f"/>
+  <circle cx="24" cy="26" r="3.4" fill="#48d597"/>
+</svg>

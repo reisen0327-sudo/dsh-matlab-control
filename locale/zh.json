@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "MATLAB/Simulink 控制工程助手",
+    "description": "桥接 MathWorks 官方 MATLAB MCP Server（含 Simulink Agentic Toolkit 工具注册表），并特化 Simulink 模型检查与仿真结果解读、App Designer 界面生成、控制科学分析（PID 整定/频域时域/状态空间）与结构化指标输出。"
+  }
+}

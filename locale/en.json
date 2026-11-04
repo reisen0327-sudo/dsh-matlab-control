@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "MATLAB/Simulink Control Assistant",
+    "description": "Bridges the MathWorks MATLAB MCP Server (with the Simulink Agentic Toolkit tool registry) and adds Simulink model checks and simulation summaries, App Designer UI generation, and control-design analysis with structured metrics."
+  }
+}

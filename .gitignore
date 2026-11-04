@@ -1,0 +1,14 @@
+# local clone of the official toolkit — obtain it with:
+#   git clone --depth 1 https://github.com/matlab/simulink-agentic-toolkit.git thirdparty/simulink-agentic-toolkit
+thirdparty/
+
+# local test artifacts / acceptance runs
+acceptance/
+tmp/
+dist/
+
+# editor and OS noise
+node_modules/
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,36 @@
+# dsh-matlab-control bundle patch
+#
+# Configuration-only bundle: no JavaScript, no MATLAB/Simulink transport of its own.
+# The bridge is the MathWorks MATLAB MCP Server, launched as a stdio MCP server through the
+# already-installed @deepseek-ai/dsh-mcp-client, with the official Simulink Agentic Toolkit
+# tool registry passed as --extension-file.
+#
+# >>> EDIT THE FOUR PATHS BELOW BEFORE INSTALLING <<<
+#   1. command                        absolute path of matlab-mcp-server.exe
+#   2. --matlab-root=                 MATLAB install folder (contains bin/), no trailing \bin
+#   3. --extension-file=              <plugin>/thirdparty/simulink-agentic-toolkit/tools/tools.json
+#   4. customSkillDirs                <plugin>/skills
+# Use forward slashes; YAML then needs no escaping.
+#
+# Session mode: omitted on purpose -> MathWorks default "auto" (attach to a shared MATLAB
+# session, otherwise start one). Add '--matlab-session-mode=existing' to args to bind to a
+# desktop MATLAB session that ran shareMATLABSession().
+- insert:
+    - id: mcp-matlab
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: matlab
+        transport: stdio
+        command: 'C:/path/to/matlab-mcp-server.exe'
+        args:
+          - '--matlab-root=C:/path/to/MATLAB'
+          - '--extension-file=C:/path/to/dsh-matlab-control/thirdparty/simulink-agentic-toolkit/tools/tools.json'
+        toolCallTimeoutMs: 600000
+        failOnStartupError: false
+    - id: matlab-control-skills
+      name: '@deepseek-ai/dsh-skill-filesystem'
+      config:
+        providerName: matlab-control
+        includeDefaultRoots: false
+        customSkillDirs:
+          - 'C:/path/to/dsh-matlab-control/skills'
