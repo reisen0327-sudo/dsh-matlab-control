@@ -78,6 +78,28 @@ Simulink 的 9 个工具来自官方 [Simulink Agentic Toolkit](https://github.c
 `shareMATLABSession()` 的 MATLAB 会话，找不到就自己启动一个。若要严格绑到桌面 MATLAB 会话，
 先在桌面执行 `shareMATLABSession()`，再给 `args` 加 `--matlab-session-mode=existing`。
 
+## 内核兼容性
+
+| 组件 | 验证过的版本 |
+|---|---|
+| DeepSeek Harness 内核 | `0.2.1-rc.5`、`0.2.2-rc.1` |
+| MATLAB | R2024b（24.2.0.2712019） |
+| Simulink、Control System Toolbox | R2024b |
+| MATLAB MCP Server | v0.13.0 |
+| Simulink Agentic Toolkit 注册表 | 1.0.32 |
+
+本插件**刻意不声明** `engines.dsh` 范围，也不声明 `@deepseek-ai/dsh-*` peerDependencies：它只是
+配置型 bundle（两行 Loader 配置，依赖的都是稳定包），内核的兼容性门控不会跳过它。因此内核升级后
+应“实测验证”，而不是靠版本区间钉死：
+
+```text
+plugin_manager { action: "list_bundles" }                                    # 是否 enabled？
+plugin_manager { action: "set_bundle", target: "dsh-matlab-control", enabled: true }
+```
+
+DSH 升级会重写 `dsh.profile.bundles`；没被重新列出的第三方 bundle 会以 `enabled: false` 挂载，
+于是工具与技能从会话里消失（包其实还在）。重新 enable 立即生效（已在 0.2.2-rc.1 实测），不需要重装。
+
 ## 技能
 
 | 技能 | 触发语句 | 行为 |
@@ -123,12 +145,13 @@ dsh-matlab-control/
 | `model_*` 报“函数不存在” | 当前 MATLAB 会话没加 toolkit 路径：在 MATLAB 里执行 `addpath(genpath('<插件>/thirdparty/simulink-agentic-toolkit'))`（用 `evaluate_matlab_code` 也行） |
 | `pidtune` / `robuststab` 未定义 | 缺 Control System / Robust Control Toolbox，用 `detect_matlab_toolboxes` 确认 |
 | 安装后没有 `mcp__matlab__*` 工具 | `cordis.patch.yml` 里的 MCP Server 路径不对，或该 MATLAB 版本没装 MCP Server Toolbox |
+| DSH 升级后工具/技能消失 | 升级把该 bundle 从 `dsh.profile.bundles` 里剔除了，重新 enable 即可（见「内核兼容性」），包本身没坏 |
 | 安装返回 `application: restart-required` | DSH 已热挂载两行；重启一次可清掉标志并走正常插件清单加载 |
 
 ## 状态与后续
 
-在 MATLAB R2024b + Simulink + Control System Toolbox 上验证通过。这是最小可用版本：
-模型搜索、批处理、报告导出、多 MATLAB 会话池等增强功能暂未包含。
+在 DeepSeek Harness `0.2.1-rc.5`、`0.2.2-rc.1` + MATLAB R2024b + Simulink + Control System Toolbox
+上验证通过。这是最小可用版本：模型搜索、批处理、报告导出、多 MATLAB 会话池等增强功能暂未包含。
 
 ## 许可
 

@@ -83,6 +83,29 @@ The example configuration omits `--matlab-session-mode`, which selects the MathW
 strictly to your desktop MATLAB session, add `--matlab-session-mode=existing` to `args` after
 running `shareMATLABSession()` there.
 
+## Compatibility
+
+| Component | Tested versions |
+|---|---|
+| DeepSeek Harness kernel | `0.2.1-rc.5`, `0.2.2-rc.1` |
+| MATLAB | R2024b (24.2.0.2712019) |
+| Simulink, Control System Toolbox | R2024b |
+| MATLAB MCP Server | v0.13.0 |
+| Simulink Agentic Toolkit registry | 1.0.32 |
+
+The bundle deliberately declares **no** `engines.dsh` range and **no** `@deepseek-ai/dsh-*`
+peer dependencies: it is configuration-only (two Loader rows over stable packages), so the kernel's
+compatibility gate never skips it. Verify behaviour after a kernel upgrade instead of pinning a range:
+
+```text
+plugin_manager { action: "list_bundles" }                                    # enabled?
+plugin_manager { action: "set_bundle", target: "dsh-matlab-control", enabled: true }
+```
+
+A DSH upgrade rewrites `dsh.profile.bundles`. Third-party bundles that are not re-listed are mounted
+as `enabled: false`, so the tools and skills disappear from the session even though the package is
+still installed. Re-enabling takes effect immediately (verified on 0.2.2-rc.1); no reinstall is needed.
+
 ## Skills
 
 | Skill | Triggers on | Does |
@@ -128,13 +151,14 @@ dsh-matlab-control/
 | `model_*` tools report "function not found" | The toolkit is not on the MATLAB path for this session. Run `addpath(genpath('<plugin>/thirdparty/simulink-agentic-toolkit'))` in MATLAB (`evaluate_matlab_code` also works). |
 | `pidtune` / `robuststab` undefined | Missing Control System / Robust Control Toolbox. Check with `detect_matlab_toolboxes`. |
 | No `mcp__matlab__*` tools after install | The MATLAB MCP Server binary path in `cordis.patch.yml` is wrong, or the MCP Server Toolbox is not installed for that MATLAB release. |
+| Tools and skills vanished after a DSH upgrade | The upgrade dropped this bundle from `dsh.profile.bundles`; re-enable it (see [Compatibility](#compatibility)) — the package itself is unaffected. |
 | `application: restart-required` after install | DSH hot-applies the rows; restart once to clear the flag and load the bundle through the normal plugin list. |
 
 ## Status and roadmap
 
-Tested on MATLAB R2024b with Simulink and Control System Toolbox. This is a minimal first version:
-model search/batch processing, report export and multi-session MATLAB pooling are intentionally not
-included yet.
+Tested on DeepSeek Harness `0.2.1-rc.5` and `0.2.2-rc.1` with MATLAB R2024b, Simulink and Control
+System Toolbox. This is a minimal first version: model search/batch processing, report export and
+multi-session MATLAB pooling are intentionally not included yet.
 
 ## License
 
