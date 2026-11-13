@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "MATLAB/Simulink Control Assistant",
-    "description": "Bridges the MathWorks MATLAB MCP Server (with the Simulink Agentic Toolkit tool registry) and adds Simulink model checks and simulation summaries, App Designer UI generation, and control-design analysis with structured metrics."
+    "description": "Bridges the MathWorks MATLAB MCP Server with the Simulink Agentic Toolkit registry, adding 14 mcp__matlab__* tools and four skills (simulink-model-check, simulink-simulation-run, app-designer-ui, control-design) for model structure checks, simulation summaries, App Designer code, and PID/frequency/state-space analysis with structured metrics. Trigger it in natural language, e.g. \"check this model\" or \"tune a PID for tf(1,[1 1])\". Requires MATLAB R2023a+ with Simulink and the MATLAB MCP Server binary; the first tool call after startup takes 1-3 minutes while MATLAB boots, and the toolkit needs addpath per MATLAB session (the skills do this)."
   }
 }
