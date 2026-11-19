@@ -90,7 +90,7 @@ running `shareMATLABSession()` there.
 
 | Component | Tested versions |
 |---|---|
-| DeepSeek Harness kernel | `0.2.1-rc.5`, `0.2.2-rc.1`, `0.2.2-rc.3` |
+| DeepSeek Harness kernel | `0.2.1-rc.5`, `0.2.2-rc.1`, `0.2.2-rc.3`, `0.2.2-rc.5` |
 | MATLAB | R2024b (24.2.0.2712019) |
 | Simulink, Control System Toolbox | R2024b |
 | MATLAB MCP Server | v0.13.0 |
@@ -107,8 +107,13 @@ plugin_manager { action: "set_bundle", target: "dsh-matlab-control", enabled: tr
 
 A DSH upgrade rewrites `dsh.profile.bundles`. Third-party bundles that are not re-listed are mounted
 as `enabled: false`, so the tools and skills disappear from the session even though the package is
-still installed. This happened on both `0.2.2-rc.1` and `0.2.2-rc.3`; re-enabling takes effect
-immediately and needs no reinstall.
+still installed. This happened on `0.2.2-rc.1`, `0.2.2-rc.3` and `0.2.2-rc.5`; re-enabling takes
+effect immediately and needs no reinstall.
+
+`0.2.2-rc.5` was re-verified by configuration/manifest recomposition: installing this checkout into
+a throwaway profile on the rc.5 kernel auto-selected the bundle, and
+`dsh --profile <name> --dump-config` composed both rows and every config key. Live mounting on a
+desktop profile after re-enabling remains for the user to confirm.
 
 ## Skills
 
@@ -160,9 +165,10 @@ dsh-matlab-control/
 
 ## Status and roadmap
 
-Tested on DeepSeek Harness `0.2.1-rc.5`, `0.2.2-rc.1` and `0.2.2-rc.3` with MATLAB R2024b, Simulink
-and Control System Toolbox. This is a minimal first version: model search/batch processing, report export and
-multi-session MATLAB pooling are intentionally not included yet.
+Kernel compatibility was re-verified on DeepSeek Harness `0.2.2-rc.5` by configuration
+recomposition; the live tool surface with MATLAB R2024b, Simulink and Control System Toolbox was
+last confirmed on `0.2.2-rc.3`. This is a minimal first version: model search/batch processing,
+report export and multi-session MATLAB pooling are intentionally not included yet.
 
 ## License
 

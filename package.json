@@ -1,6 +1,6 @@
 {
   "name": "dsh-matlab-control",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "type": "module",
   "description": "MATLAB/Simulink control-engineering assistant for DeepSeek Harness: reuses the MathWorks MATLAB MCP Server (with the Simulink Agentic Toolkit tool registry) and adds Simulink model checks, simulation result summaries, App Designer UI generation, and control-design analysis.",
   "exports": {

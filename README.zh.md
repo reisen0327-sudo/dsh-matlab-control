@@ -82,7 +82,7 @@ Simulink 的 9 个工具来自官方 [Simulink Agentic Toolkit](https://github.c
 
 | 组件 | 验证过的版本 |
 |---|---|
-| DeepSeek Harness 内核 | `0.2.1-rc.5`、`0.2.2-rc.1`、`0.2.2-rc.3` |
+| DeepSeek Harness 内核 | `0.2.1-rc.5`、`0.2.2-rc.1`、`0.2.2-rc.3`、`0.2.2-rc.5` |
 | MATLAB | R2024b（24.2.0.2712019） |
 | Simulink、Control System Toolbox | R2024b |
 | MATLAB MCP Server | v0.13.0 |
@@ -98,8 +98,12 @@ plugin_manager { action: "set_bundle", target: "dsh-matlab-control", enabled: tr
 ```
 
 DSH 升级会重写 `dsh.profile.bundles`；没被重新列出的第三方 bundle 会以 `enabled: false` 挂载，
-于是工具与技能从会话里消失（包其实还在）。0.2.2-rc.1 与 0.2.2-rc.3 两次升级均复现，
-重新 enable 立即生效，不需要重装。
+于是工具与技能从会话里消失（包其实还在）。0.2.2-rc.1、0.2.2-rc.3 与 0.2.2-rc.5
+均复现，重新 enable 立即生效，不需要重装。
+
+0.2.2-rc.5 通过配置/清单重组验证：在 rc.5 内核上把本仓库装进一个临时 profile 后 bundle 被
+自动选中，`dsh --profile <name> --dump-config` 成功组合出两行及全部配置项；桌面 profile 重新
+enable 后的实际挂载仍需用户确认。
 
 ## 技能
 
@@ -151,8 +155,9 @@ dsh-matlab-control/
 
 ## 状态与后续
 
-在 DeepSeek Harness `0.2.1-rc.5`、`0.2.2-rc.1`、`0.2.2-rc.3` + MATLAB R2024b + Simulink + Control System Toolbox
-上验证通过。这是最小可用版本：模型搜索、批处理、报告导出、多 MATLAB 会话池等增强功能暂未包含。
+已通过配置重组在 DeepSeek Harness `0.2.2-rc.5` 上重新核对兼容性；工具面的最近一次实测在
+`0.2.2-rc.3`（MATLAB R2024b + Simulink + Control System Toolbox）。这是最小可用版本：模型搜索、
+批处理、报告导出、多 MATLAB 会话池等增强功能暂未包含。
 
 ## 许可
 

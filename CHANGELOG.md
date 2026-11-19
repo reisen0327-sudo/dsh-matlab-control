@@ -1,5 +1,38 @@
 # Changelog
 
+## 0.1.3 — 2026-11-20
+
+Kernel compatibility re-verification for DeepSeek Harness `0.2.2-rc.5`.
+
+- Re-verified the two Loader rows against the rc.5 package sources. `@deepseek-ai/dsh-mcp-client`
+  still accepts every key the patch sets — `transport: stdio`, `serverName`, `command`, `args`,
+  `toolCallTimeoutMs`, `maxInstructionBytes`, `failOnStartupError` (`src/index.ts`, Config stdio
+  branch) — and `@deepseek-ai/dsh-skill-filesystem` still accepts `providerName`,
+  `includeDefaultRoots`, `customSkillDirs` (`src/index.ts`, `Config`). No used key was removed or
+  renamed.
+- Re-verified the four `skills/*/SKILL.md` blocks against the rc.5 parser: each frontmatter block
+  parses, `name` is kebab-case and matches its directory, and `description` is present and
+  non-empty. The optional `whenToUse` field is still accepted.
+- Re-verified the manifest and display surface: `exports` still provides `./locale/*.json` and
+  `./icon`, `dsh.bundle.patch` still points at `cordis.patch.yml`, and `files` covers every runtime
+  file. Locale metadata still uses `meta.title`/`meta.description`; no `meta.detail` is declared and
+  the README fallback remains the documented option, so no detail document was added.
+- Checked the `v0.2.2-rc.3` and `v0.2.2-rc.4` upgrade guides: they change the DeepSeek refusal error
+  code and the default web-search provider, neither of which touches a configuration-only MATLAB
+  bundle. No upgrade guide applies, and no patch, skill, or tool-surface change was needed.
+- Confirmed the upgrade behaviour is still present on `0.2.2-rc.5`: the desktop profile keeps the
+  `link:` dependency but its `dsh.profile.bundles` no longer lists `dsh-matlab-control`. Recovery is
+  unchanged: `plugin_manager { action: "set_bundle", target: "dsh-matlab-control", enabled: true }`.
+- Re-verified by configuration/manifest recomposition on the rc.5 kernel: installing this checkout
+  into a throwaway profile (`dsh plugin --profile <name> add link:<checkout>`) auto-selected the
+  bundle, and `dsh --profile <name> --dump-config` composed both rows and every config key without
+  error.
+  Live mounting on a desktop profile after re-enabling was not re-run (no headless app activation in
+  this environment), so `application: applied`, the 14 `mcp__matlab__*` tools, and
+  `model_check`/`pidtune` results are not claimed for `0.2.2-rc.5`; they remain for the user to
+  confirm after re-enabling.
+- Version bumped to `0.1.3`; both READMEs extended with `0.2.2-rc.5`.
+
 ## 0.1.2 — 2026-11-14
 
 Kernel compatibility re-verification for DeepSeek Harness `0.2.2-rc.3`.
