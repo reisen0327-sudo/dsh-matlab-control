@@ -1,7 +1,6 @@
 # dsh-matlab-control
 
 [![Listed on dsh-plugin.org](https://dsh-plugin.org/badges/listed.svg)](https://dsh-plugin.org/plugins/reisen0327-sudo/dsh-matlab-control)
-DPH-CLAIM-61b2b64ed841e1539a168933136c862a
 
 
 **MATLAB/Simulink control-engineering assistant for DeepSeek Harness (DSH).**
