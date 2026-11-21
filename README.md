@@ -1,6 +1,7 @@
 # dsh-matlab-control
 
 [![Listed on dsh-plugin.org](https://dsh-plugin.org/badges/listed.svg)](https://dsh-plugin.org/plugins/reisen0327-sudo/dsh-matlab-control)
+[![dshfind](https://dshfind.com/api/badge/reisen0327-sudo/dsh-teacher-mode?lang=zh)](https://dshfind.com/zh/plugins/reisen0327-sudo/dsh-teacher-mode?ref=badge)
 
 
 **MATLAB/Simulink control-engineering assistant for DeepSeek Harness (DSH).**
